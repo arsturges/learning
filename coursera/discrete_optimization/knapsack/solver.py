@@ -43,18 +43,17 @@ def solve_it(input_data):
     firstLine = lines[0].split()
     item_count = int(firstLine[0])
     ks_capacity = int(firstLine[1])
-    lines_int = [map(int, x.split(' ')) for x in lines[1:]]
-    t = np.zeros([ks_capacity+1, item_count+1], dtype=np.int8)
-    df = pd.DataFrame([[0, 0]]+lines_int, columns=('value', 'weight'))  # add [0,0] to top of list
+    lines_int = [list(map(int, x.split(' '))) for x in lines[1:]]
+    t = np.zeros([ks_capacity+1, item_count+1], dtype=np.int64)
+    df = pd.DataFrame([[0, 0]]+ lines_int, columns=('value', 'weight'))  # add [0,0] to top of list
     for i in tqdm(range(ks_capacity+1)):
         for j in range(item_count+1):
             if weight(j, df) == 0:
                 continue
-            elif i < weight(j, df):
+            elif weight(j, df) > i:
                 t[i][j] = t[i][j-1]
             else:
                 t[i][j] = max(value(j, df) + t[i-weight(j, df)][j-1], t[i][j-1])
-    print(t)
     taken = np.zeros([item_count], dtype=np.int8)
     i = ks_capacity
     total_value = 0
