@@ -1,0 +1,9 @@
+PRODUCTS = {chocolate_cake, banana_cake};
+RESOURCES = {flour, banana, sugar, butter, cocoa};
+
+%flour = 8000;
+%banana = 11;
+%sugar = 3000;
+%butter = 1500;
+%cocoa = 8000;
+
